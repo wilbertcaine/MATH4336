@@ -1,0 +1,6 @@
+function IC = svd_for_image_compression(input_image, n)
+    A = imread(input_image);
+    [U,S,V] = svd(double(input_image)/255);
+    plot(diag(S));
+end
+
