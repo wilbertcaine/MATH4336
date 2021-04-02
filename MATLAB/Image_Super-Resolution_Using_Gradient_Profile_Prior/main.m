@@ -1,6 +1,6 @@
-input_folder = './input/Set14';
+input_folder = './input/Set5';
 
-ground_truth = imread(fullfile(input_folder, 'comic.png'));
+ground_truth = imread(fullfile(input_folder, 'butterfly.png'));
 up_scale = 2;
 t_max = 100;
 tau = 0.2;
@@ -12,6 +12,7 @@ ground_truth = rgb2gray(ground_truth);
 ground_truth = im2double(ground_truth);
 
 input = imresize(ground_truth, 1/up_scale, 'bicubic');
+bicubic_input = imresize(input, up_scale, 'bicubic');
 
 img = imresize(input, up_scale, 'bicubic');
 
@@ -40,9 +41,11 @@ for iter = 1 : t_max
     gc = Div_G - Div_G_T;
     
     img = img - tau * (rc_up_filter - beta * gc);
+    img = min(img, 1);
+    img = max(img, 0);
     
     subplot(1, 3, 1);
-    imshow(input);
+    imshow(bicubic_input);
     subplot(1, 3, 2);
     imshow(img);
     subplot(1, 3, 3);
