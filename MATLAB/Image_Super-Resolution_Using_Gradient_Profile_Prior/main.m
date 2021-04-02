@@ -1,6 +1,6 @@
-input_folder = './input/Set5';
+input_folder = './input/Set14';
 
-ground_truth = imread(fullfile(input_folder, 'woman.png'));
+ground_truth = imread(fullfile(input_folder, 'comic.png'));
 up_scale = 2;
 t_max = 100;
 tau = 0.2;
@@ -28,12 +28,12 @@ for iter = 1 : t_max
     [Gc,Gr] = imgradientxy(img, 'central');
     [sigma_l_matrix, distance_l_matrix] = sigma_distance_matrix(Gmag, Gc, Gr);
     sigma_h_matrix = find_sigma_h(sigma_l_matrix);
-    [Gr_T, Gc_T] = find_transform_ratio(distance_l_matrix, Gr, Gc, sigma_h_matrix, sigma_l_matrix, lambda_h, lambda_l);
+    [Gc_T, Gr_T] = find_transform_ratio(distance_l_matrix, Gr, Gc, sigma_h_matrix, sigma_l_matrix, lambda_h, lambda_l);
     
-    [Gr_Gr, Gc_Gr] = imgradientxy(Gr, 'central');
-    [Gr_Gc, Gc_Gc] = imgradientxy(Gc, 'central');
-    [Gr_Gr_T, Gc_Gr_T] = imgradientxy(Gr_T, 'central');
-    [Gr_Gc_T, Gc_Gc_T] = imgradientxy(Gc_T, 'central');
+    [Gc_Gr, Gr_Gr] = imgradientxy(Gr, 'central');
+    [Gc_Gc, Gr_Gc] = imgradientxy(Gc, 'central');
+    [Gc_Gr_T, Gr_Gr_T] = imgradientxy(Gr_T, 'central');
+    [Gc_Gc_T, Gr_Gc_T] = imgradientxy(Gc_T, 'central');
     
     Div_G = Gr_Gr + Gc_Gc;
     Div_G_T = Gr_Gr_T + Gc_Gc_T;
@@ -47,5 +47,5 @@ for iter = 1 : t_max
     imshow(img);
     subplot(1, 3, 3);
     imshow(ground_truth);
-    pause(0.1);
+    pause(0.001);
 end
