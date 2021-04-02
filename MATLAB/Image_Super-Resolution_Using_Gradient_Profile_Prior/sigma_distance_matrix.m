@@ -32,8 +32,15 @@ function [S, D] = sigma_distance_matrix(Gmag, Gc, Gr)
                     ratio_c = find_increase_rate(curr_c, dir_c);
                     
                     ratio = min(ratio_r, ratio_c);
+%                     if ratio == 0
+%                         ratio = max(ratio_r, ratio_c);
+%                     end
+%                     if ratio == 0
+%                         break;
+%                     end
                     curr_r = curr_r + ratio*dir_r;
                     curr_c = curr_c + ratio*dir_c;
+%                     disp(curr_r);
                     has_next = (2 < curr_r) && (curr_r < numRows-1) && (2 < curr_c) && (curr_c < numCols-1);
                     if ~has_next
                         break;
@@ -49,13 +56,15 @@ function [S, D] = sigma_distance_matrix(Gmag, Gc, Gr)
             end
                 
             id = 2;
-            for i = 1 : max(len(1), len(2))
-                if mag(1) > mag(2)
+            if len(1) > 1 && len(2) == 1
+                id = 1;
+            elseif len(1) == 1 && len(2) > 1
+                id = 2;
+            else
+                D1 = sqrt((pr(1, len(1))-pr(1, 1))^2 + (pc(1, len(1))-pc(1, 1))^2);
+                D2 = sqrt((pr(2, len(2))-pr(2, 1))^2 + (pc(2, len(2))-pc(2, 1))^2);
+                if D1 < D2
                     id = 1;
-                    break;
-                elseif mag(2) > mag(1)
-                    id = 2;
-                    break;
                 end
             end
 

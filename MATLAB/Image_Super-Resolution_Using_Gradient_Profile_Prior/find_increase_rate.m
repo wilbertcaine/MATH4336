@@ -4,6 +4,9 @@ function ratio = find_increase_rate(curr, dir)
         next = ceil(curr);
     elseif dir < 0
         next = floor(curr);
+    else
+        ratio = 0;
+        return;
     end
     
     if next == curr && dir ~= 0
@@ -13,7 +16,7 @@ function ratio = find_increase_rate(curr, dir)
             next = curr - 1;
         end
     end
-    
-    ratio = abs((next - curr)/dir);
+%     disp(dir)
+    ratio = (next - curr)/dir;
 end
 
