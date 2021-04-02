@@ -1,0 +1,7 @@
+function mag = find_magnitude(Gmag, curr_r, curr_c)
+    diff_r = curr_r - floor(curr_r);
+    diff_c = curr_c - floor(curr_c);
+    if diff_r == 0 and diff_c == 0
+        
+end
+
