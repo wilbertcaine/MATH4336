@@ -1,0 +1,60 @@
+function plot_mu(mu)
+    up_scale = 2;
+    addpath('\\Vdidrive\myhome\wcaine\Documents\MATLAB\input\Set5');
+
+    ground_truth = imread('head.png');
+    up_scale_factor = 2;
+    t_max = 25;
+    tau = 0.2; % 0.2
+    beta = 0.05; % 0.05
+    lambda_h = 1.63;
+    lambda_l = 1.6;
+    gau_sigma = 0.8;
+
+    ground_truth = rgb2gray(ground_truth);
+    ground_truth = im2double(ground_truth);
+
+    input = imresize(ground_truth, 1/up_scale^up_scale_factor, 'bilinear');
+    up_input = imresize(input, up_scale^up_scale_factor, 'bilinear');
+    img = input;
+
+    for scale = 1 : up_scale_factor
+
+        img_input = img;
+        img = imresize(img, up_scale, 'bilinear');
+
+        for iter = 1 : t_max
+            img_filter = imgaussfilt(img, gau_sigma);
+            img_filter_down = imresize(img_filter, 1/up_scale, 'bilinear');
+            rc = img_filter_down - img_input;
+            rc_up = imresize(rc, up_scale, 'bilinear');
+            rc_up_filter = imgaussfilt(rc_up, gau_sigma);
+
+            gc = find_gc(img, lambda_h, lambda_l, mu);
+
+            img = img - tau * (rc_up_filter - beta * gc);
+            img = min(img, 1);
+            img = max(img, 0);
+            if mod(iter, 5) == 0
+                pos = 0;
+                if mu ~= 0
+                    pos = up_scale_factor+3;
+                end
+                subplot(2, up_scale_factor+3, +1);
+                imshow(up_input);
+                title('bicubic');
+                subplot(2, up_scale_factor+3, pos+2);
+                imshow(Gmag);
+                title('Gmag');
+                subplot(2, up_scale_factor+3, pos+scale+2);
+                imshow(img);
+                title([num2str(up_scale^scale), 'X']);
+                subplot(2, up_scale_factor+3, pos+up_scale_factor+3);
+                imshow(ground_truth);
+                title('ground truth');
+                pause(0.001);
+            end
+        end
+    end
+end
+
