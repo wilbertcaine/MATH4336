@@ -1,17 +1,11 @@
-function plot_mu(mu)
-    up_scale = 2;
-    addpath('\\Vdidrive\myhome\wcaine\Documents\MATLAB\input\Set14');
+function plot_mu(filename, up_scale, up_scale_factor, t_max, tau, beta, lambda_h, lambda_l, gau_sigma, mu)
+    addpath('\\Vdidrive\myhome\wcaine\Documents\MATLAB\dataset');
 
-    ground_truth = imread('ppt3.png');
-    up_scale_factor = 3;
-    t_max = 25;
-    tau = 0.2; % 0.2
-    beta = 0.05; % 0.05
-    lambda_h = 1.63;
-    lambda_l = 1.6;
-    gau_sigma = 0.8;
+    ground_truth = imread(filename);
 
-    ground_truth = rgb2gray(ground_truth);
+    if size(size(ground_truth), 2) > 2
+        ground_truth = rgb2gray(ground_truth);
+    end
     ground_truth = im2double(ground_truth);
 
     input = imresize(ground_truth, 1/up_scale^up_scale_factor, 'bilinear');
