@@ -48,7 +48,7 @@ function [S, D] = sigma_distance_matrix(Gmag, Gc, Gr)
                     
                     prev_mag = curr_mag;
                     curr_mag = find_magnitude(Gmag, curr_r, curr_c);
-                    if prev_mag > curr_mag
+                    if prev_mag >= curr_mag
                         break;
                     end
                     
