@@ -1,6 +1,6 @@
 addpath('\\Vdidrive\myhome\wcaine\Documents\MATLAB\dataset');
 
-filename = 'baby_crop.png';
+filename = 'butterfly_crop.png';
 up_scale = 2; % 2
 up_scale_factor = 2;
 t_max = 25; % 100
@@ -53,14 +53,24 @@ title({['\mu = ', num2str(mu)], ['SSIM = ', num2str(ssim(img_inf, ground_truth))
 subplot(2, n, n+3);
 imshow(imcomplement(Gmag));
 
-for i = 1 : 5
-    mu = i/10;
-    subplot(2, n, i+3);
+for i = 5 : -1 : 1
+    if i == 5
+        mu = 10;
+    elseif i == 4
+        mu = 1;
+    elseif i == 3
+        mu = 0.5;
+    elseif i == 2
+        mu = 0.1; 
+    elseif i == 1
+        mu = 0.01; 
+    end
+    subplot(2, n, 9-i);
     img = plot_mu(input, up_scale, up_scale_factor, t_max, tau, beta, lambda_h, lambda_l, gau_sigma, mu);
     imshow(img);
     title({['\mu = ', num2str(mu)], ['SSIM = ', num2str(ssim(img, ground_truth))]});
     [Gmag,Gdir] = imgradient(img_inf, 'central');
-    subplot(2, n, n+i+3);
+    subplot(2, n, n+9-i);
     imshow(imcomplement(Gmag));
 end
 
