@@ -1,1 +1,91 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{latexsym,amssymb,enumerate,amsmath,epsfig,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace,color}
+\usepackage{graphics}
+\usepackage{graphicx}
 
+%\newcommand{\x}{\mathbf{x}}
+%\newcommand{\y}{\mathbf{y}}
+%\newcommand{\bv}{\mathbf{v}}
+%\newcommand{\n}{\mathbf{n}}
+%\newcommand{\colored}[1]{\textcolor{red}{#1}}
+%\newtheorem{thm}{Theorem}[section]
+%\newtheorem{prop}{Proposition}[section]
+%\newtheorem{obser}{Observation}[section]
+%\newtheorem{corollary}{Corollary}[section]
+
+%\doublespacing
+
+\title{High Resolution Image Construction using Gradient Profile Prior}
+\author{
+Wilbert Caine\thanks{Email: {\bf wcaine@connect.ust.hk}}
+}
+
+\begin{document}
+\thispagestyle{plain}
+\maketitle
+
+%\begin{center}
+%{\em Supervised by: } Dr. A-B-C 
+%\end{center}
+%\vspace{0.5cm}
+
+\begin{abstract}
+We employed the information in the gradient profile prior to construct high resolution images form the corresponding low resolution images. The reconstructed images are sharp while artifacts are minimal. For noisy images, we adopt the non local means algorithm to remove the noise and reapply the noise to produce more pleasant outcomes to the human eye. Some reconstructed high resolution results are attached as example.
+\end{abstract}
+
+\section{Introduction}
+Image resolution refers to the ability of a sensor to differentiate between two objects or pixels that are relatively close to each other. Compared to low-resolution images (LR), high-resolution (HR) images are often desirable especially in many fields such as computer vision, video surveillance, medical imaging, etc. Despite the vast advancement in hardware technology, image resolution enhancement techniques are still significant in many applications. For example, digital surveillance products usually sacrifice not only frame rate but also resolution to ensure the long-term usability of the devices\cite{in16}. The purpose of super-resolution (SR) is to generate a HR image out of the LR image. In general, there are three different approaches, which are interpolation based methods, reconstruction based methods, and learning based methods, with their own advantages and disadvantages in the application\cite{sr11}. Overall, many researches have been done on how to apply the prior or constraint of the HR images. To solve this issue, the gradient profile prior\cite{sr11} is adopted in this project. By enforcing both reconstruction constraint and the gradient field constraint, the HR images would have less artifacts along the edges. One may expect that the model could be sensitive to noise such that the noise would be sharpened. We would also briefly discuss how to apply image denoising methods to better the image.
+
+\section{High Resolution Image Reconstruction}
+
+\subsection{Image Sharpness Enhancement}
+HR images generally have sharp edges as shown in the inverted gradient magnitude of the ground truth in Fig. 1. The sharpness is identified by the $\sigma$ value in the model. In addition to the gradient field transformation, the sharpness enhancement function could be applied to further enhance the edge of blurry images. The sharpness enhancement function can be expressed as $F(\sigma) = (1-e^{-\mu\sigma})\sigma$ which is continuous and results in smaller $\sigma$ values. As $\mu > 0$ is chosen to be closer to 0, the edge sharpness will be more enhanced.
+
+\begin{center}
+	\makebox[\textwidth]{\includegraphics[width=0.7\textwidth]{mu.png}}
+	\scriptsize
+	Fig. 1. Image enhancement using the sharpness enhancement function: the reconstructed HR images (top) and inverted gradient magnitude map. The Structural SIMilarity (SSIM) \cite{ssim04} between the HR image and ground truth increased as $\mu$ gets closer to 0 since the sharpness gets closer to that of the ground truth.
+\end{center}
+
+\subsection{HR Image Reconstruction}
+
+
+\begin{center}
+	\makebox[\textwidth]{\includegraphics[width=0.7\textwidth]{beta.png}}
+	\scriptsize
+	Fig. 2. Effect of changes of the value of the parameter $\beta$ towards the SSIM between the reconstructed HR image and the ground truth. We set $\beta = 0.05$, by default, in the implementation.
+\end{center}
+
+\begin{center}
+	\makebox[\textwidth]{\includegraphics[width=0.4\textwidth]{beta 0 05.png}}
+	\scriptsize
+	Fig. 3. HR image reconstruction with small and large value of parameter $\beta$. Setting $\beta = 0$ will produce HR image with ringing and jaggy artifacts. On the other hand, the artifacts are less visible when $\beta = 0.5$.
+\end{center}
+
+\section{Noisy HR Image}
+\subsection{Noise Layer}
+
+
+\subsection{Convex Combination}
+
+
+\section{Conclusions}
+
+
+\begin{thebibliography}{10}
+
+\bibitem{in16} {\sc Yue, Linwei \& Shen, Huanfeng \& Li, Jie \& Yuan, Qiangqiang \& Zhang, Hongyan \& Zhang, Liangpei.} (2016). {\em Image super-resolution: The techniques, applications, and future.} Signal Processing. 128. 10.1016/j.sigpro.2016.05.002. 
+
+\bibitem{sr11} {\sc J. Sun, J. Sun, Z. Xu, \& H. Shum}, {\em Gradient Profile Prior and Its Applications in Image Super-Resolution and Enhancement}, in IEEE Transactions on Image Processing, vol. 20, no. 6, pp. 1529-1542, June 2011.
+
+\bibitem{ssim04} {\sc Zhou Wang, A. C. Bovik, H. R. Sheikh, \& E. P. Simoncelli}, {\em Image quality assessment: from error visibility to structural similarity}, in IEEE Transactions on Image Processing, vol. 13, no. 4, pp. 600-612, April 2004.
+
+\bibitem{nlm05} {\sc A. Buades, B. Coll, \& J. -. Morel}, {\em A non-local algorithm for image denoising}, 2005 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR'05), San Diego, CA, USA, 2005, pp. 60-65 vol. 2.
+
+\bibitem{noise14} {\sc A. Singh, F. Porikli, \& N. Ahuja}, {\em Super-resolving Noisy Images}, 2014 IEEE Conference on Computer Vision and Pattern Recognition, Columbus, OH, USA, 2014, pp. 2846-2853.
+
+\end{thebibliography}
+
+\end{document}
