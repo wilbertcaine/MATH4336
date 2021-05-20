@@ -15,11 +15,7 @@ function Sigma_high = find_sigma_h(Sigma_low, mu)
                     break;
                 end
             end
-            if mu > 0
-                Sigma_high(r,c) = (1 - exp(-mu*s_h)) * s_h;
-            else
-                Sigma_high(r,c) = s_h;
-            end
+            Sigma_high(r,c) = (1 - exp(-mu*s_h)) * s_h;
         end
     end
 end
