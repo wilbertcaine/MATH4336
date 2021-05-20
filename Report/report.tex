@@ -49,33 +49,85 @@ To solve this issue, the gradient profile prior\cite{sr11} is adopted in this pr
 \section{Gradient Profile Prior for Image Super-Resolution}
 
 \subsection{Gradient Profile Prior}
+\label{Gradient Profile Prior}
 
-Firstly, we define the image gradient as $\nabla I = (\partial_x I, \partial_y I) = \sqrt{(\partial_x I)^2 + (\partial_y I)^2} \cdot \vec{N} = m \cdot \vec{N} $ where $m$ is the gradient magnitude and $\vec{N}$ is the gradient unit vector. To obtain the numerical derivatives, we adopts the central difference for both $\partial_x I$ and $\partial_y I$. For every pixel in the image, we denote the edge pixel as the local maximum along its gradient direction in the gradient field. In other words, if we trace the path along the gradient direction of a pixel until the gradient magnitude stops decreasing, we will eventually end up in the edge pixel for the particular pixel. The path from the pixel to the edge pixel is called the gradient profile. In implementation, piecewise linear interpolation is applied to estimate the gradient of the pixel when one of the spatial coordinates is non-integer (i.e. the gradient magnitude will be compared to the current gradient magnitude only when at least one of the spatial coordinates is an integer). The gradient magnitude and coordinate of the encountered is recorded for further usage.
+We define the image gradient as $\nabla I = (\partial_x I, \partial_y I) = \sqrt{(\partial_x I)^2 + (\partial_y I)^2} \cdot \vec{N} = m \cdot \vec{N} $ where $m$ is the gradient magnitude and $\vec{N}$ is the gradient unit vector. To obtain the numerical derivatives, we adopts the central difference for both $\partial_x I$ and $\partial_y I$. Then, we denote the edge pixel as the local maximum along its gradient direction in the gradient field. In other words, we trace the path along the gradient direction of an edge pixel until the gradient magnitude stops decreasing. The path from an edge pixel along the gradient direction is called the gradient profile. In implementation, piecewise linear interpolation is applied to estimate the gradient of the pixel when one of the spatial coordinates is non-integer (i.e. the gradient magnitude will be compared to the current gradient magnitude only when at least one of the spatial coordinates is an integer). The gradient magnitude and coordinate of the encountered is recorded for further usage.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{Gradient-profile-a-Two-edges-with-different-sharpness-b-Gradient-maps-normalized.png}
-	\caption{(a) two images with different sharpness where the top image is sharper than the bottom image. (b) inverted and normalized gradient magnitude for the corresponding region of the image in (a) and the gradient profile $p(x_0)$ is the path starting from $x_1$ and $x_2$ along the gradient direction and ending at the edge pixel $x_0$ where the gradient magnitude no longer increase. (c) graph of gradient magnitude along the path ($p(x_0)$) from  $x_1$ to $x_2$. Note that sharp edge results in shorter gradient profile and greater change in gradient magnitude along the gradient profile. (d) encountered pixels are marked by red dots and, as an example, the gradient magnitude at $x$ is interpolated from $a$ and $b$.}
+	\caption{(a) two images with different sharpness where the top image is sharper than the bottom image. (b) inverted and normalized gradient magnitude for the corresponding region of the image in (a) and the gradient profile $p(x_0)$ is the path which starts from the edge pixel $x_0$ along the gradient direction and stops at $x_1$ and $x_2$ where the gradient magnitude no longer increase. (c) graph of gradient magnitude along the path ($p(x_0)$) from  $x_1$ to $x_2$. Note that sharp edge results in shorter gradient profile and greater change in gradient magnitude along the gradient profile. (d) encountered pixels are marked by red dots and, as an example, the gradient magnitude at $x$ is interpolated from $a$ and $b$.}
 	\label{fig:gp}
 \end{figure}
 
-The profile sharpness of an edge is defined as
+To investigate the gradient profile in natural images, we define the distribution of gradient profiles as
+\begin{equation}
+	g(x; \sigma, \lambda) = \frac{\lambda \alpha (\lambda)}{2 \sigma \Gamma(\frac{1}{\lambda})} e^{-[\alpha (\lambda)\lvert \frac{x}{\sigma} \rvert]^\lambda}
+\end{equation}
+with $\Gamma(\cdot)$ is gamma function and $\alpha (\lambda) = \sqrt{\frac{\Gamma(\frac{3}{\lambda})}{\Gamma(\frac{1}{\lambda})}}$. The shape parameter($\lambda$) controls the distribution shape of the gradient profile. The optimal shape parameter is obtained by varying the value of $\lambda$ on sampled natural images as shown in Figure \ref{fig:shapep} using Kullback-Leibler (KL) divergence as the fitting error. As a result of the findings from \cite{sr11}, the shape parameter is set to 1.6 which is the optimal prior for natural images that minimize the error as observed in Figure \ref{fig:shapep}. It is also shown in Figure \ref{fig:shapep} that shape parameter is resolution independent in natural images. Although bicubic interpolation may influence the shape parameter, it is found that the optimal $\lambda$ is 1.63 for images with up-sampling factor of 2. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{3-Figure2-1.png}
+	\caption{}
+	\label{fig:shapep}
+\end{figure}
+
+The gradient profile sharpness of an edge pixel is defined as
 \begin{equation}
 	\label{eq:sigma}
 	\sigma_l(p(x_0)) = \sqrt{\sum_{x \epsilon p(x_0)} m'(x) d^2(x, x_0)}
 \end{equation}
-where $m'(x) = {m(x) \over \sum_{x \epsilon p(x_0)} m(x)}$ and $d(x,x_0)$ is the distance between $x$ and $x_0$ along the gradient direction $p(x_0)$. Intuitively, sharp gradient profile has low $\sigma$ value. Initially, the equation (\ref{eq:sigma}) is used to find the sharpness of the up-sampled image from the LR image. The sharpness $\sigma_h$ in the HR image, which is to be constructed, could later be estimated from the sharpness $\sigma_l$ based on the learning from natural images\cite{sr11}. As a result of the findings from \cite{sr11}, the expected sharpness of the HR image could be computed using hardcoded data.
+where $m'(x) = {m(x) \over \sum_{x \epsilon p(x_0)} m(x)}$ and $d(x,x_0)$ is the distance between $x$ and $x_0$ along the gradient direction $p(x_0)$. Intuitively, sharp gradient profile has low $\sigma$ value. Initially, the equation (\ref{eq:sigma}) is used to find the sharpness of the up-sampled image from the LR image. The sharpness $\sigma_h$ in the HR image, which is to be constructed, could be estimated from the sharpness $\sigma_l$ based on the learning from natural images (shown in Figure \ref{fig:es}). Finally, the expected sharpness of the HR image is computed using hardcoded data.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{Expected-sharpness-of-the-gradient-profiles-in-HR-image-with-respect-to-sharpness-of-the.png}
+	\includegraphics[width=0.4\textwidth]{Expected-sharpness-of-the-gradient-profiles-in-HR-image-with-respect-to-sharpness-of-the.png}
 	\caption{relationship between the sharpness of gradient profiles in up-sampled images and the sharpness of gradient profiles in the actual HR image.}
 	\label{fig:es}
 \end{figure}
 
-\subsection{Gradient Field Transformation}
-
 \subsection{Super-Resolution Model}
+
+In this project, the HR gradient field is approximated from the LR gradient field using the gradient profile prior. We denote gradient profile as $p_l$ for up-sampled LR image $\nabla I_l^u$ and $p_h$ for the HR image $\nabla I_h$. Firstly, we compute the ratio between the gradient profiles, i.e.
+\begin{equation}
+	\label{eq:transformr}
+	r(d(x, x_0)) = \frac{g(d(x, x_0); \sigma_h, \lambda_h)}{g(d(x, x_0); \sigma_l, \lambda_l)}
+\end{equation}
+where $\lambda_h=1.63$, $\lambda_l=1.6$, and $\sigma_h$ is estimated from $\sigma_L$ using the pre-computed data from the learning result in section \ref{Gradient Profile Prior}. Thus, we estimate $p_h$ by multiplying $p_l$ by the transform ratio in (\ref{eq:transformr}), i.e. the transformed HR gradient field is denoted by
+\begin{equation}
+	\label{eq:transformgrad}
+	\nabla I_h^T(x) = r(d(x, x_0)) \cdot \nabla I_l^u(x)
+\end{equation}
+for every pixel $x$ in the image.
+
+The transformed gradient field in (\ref{eq:transformgrad}) is used as the gradient domain constraint when reconstructing the HR image. Given a LR image $I_l$, we minimize the following energy to reconstruct the HR image $I_h$
+\begin{equation}
+	\label{eq:energy1}
+	E(I_h | I_l, \nabla I_h^T) = E_i(I_h | I_l) + \beta E_g(\nabla I_h, \nabla I_h^T) 
+\end{equation}
+where $E_i$ is the constraint in the image domain denoted by
+\begin{equation}
+	\label{eq:energyi}
+	E_i(I_h | I_l) = \lvert (I_h \ast G) \downarrow - I_l \rvert^2
+\end{equation}
+,with convolution operator $\ast$, down-sampling operator $\downarrow$, and gaussian filter $G$ with standard deviation 0.8 for up-sampling factor of 2, while $E_g$ is the constraint in the gradient domain denoted by
+\begin{equation}
+	\label{eq:energyg}
+	E_g(\nabla I_h, \nabla I_h^T) = \lvert \nabla I_h - \nabla I_h^T \rvert^2
+\end{equation}
+By applying the constraint in the gradient domain, the gradient profile in reconstructed HR image $I_h$ is expected to have the desired statistics of those in natural HR images.
+
+In practice, we use the following iterative scheme to minimize (\ref{eq:energy1})
+\begin{equation}
+	\label{eq:energy1}
+	I_h^{t+1} = I_h^t - \tau \cdot \frac{\partial E(I_h)}{\partial I_h}
+\end{equation}
+where
+\begin{equation}
+	\frac{\partial E(I_h)}{\partial I_h} = - [((I_h \ast G) \downarrow - I_l) \uparrow \ast G - \beta \cdot (div(\nabla I_h) - div(\nabla I_h^T)]
+\end{equation}
+ with $div(\nabla I_h) = \frac{\partial^2 I_h}{\partial x^2} + \frac{\partial^2 I_h}{\partial y^2}$ and step function $\tau =0.2$ by default.
 
 \begin{figure}[H]
 	\centering
@@ -111,7 +163,7 @@ which is continuous and results in smaller $\sigma_h$ values. As $\mu > 0$ is ch
 
 \subsection{Noisy Image Super-Resolution}
 
-The SR model using the gradient profile prior is incapable of differing between edge and noise in the image. In other words, the model will treat the noise in the same way as the edge, i.e. enhanced. As an implication, the noise might appear as local maximum in the gradient domain and, in turns, create unexpected gradient profiles. One straightforward solution is to firstly extract the noise layer through a denosing method before applying the HR reconstruction algorithm. This process would remove the unexpected gradient profiles in the image. Secondly, the noise layer is then upsampled and reapplied to the HR image constructed previously. In Figure \ref{fig:sden}, the LR image is denoised with the non-local means algorithm\cite{nlm05} to obtain a more pleasant result to our eye (bottom right) compared to the original result (top right).
+The SR model using the gradient profile prior is incapable of differing between edge and noise in the image. In other words, the model will treat the noise in the same way as the edge, i.e. enhanced. As an implication, the noise might appear as local maximum in the gradient domain and, in turns, create unexpected gradient profiles. One straightforward solution is to firstly extract the noise layer through a denosing method before applying the HR reconstruction algorithm. This process would remove the unexpected gradient profiles in the image. Secondly, the noise layer is then upsampled and reapplied to the HR image constructed previously. In Figure \ref{fig:sden}, the LR image is denoised with the non-local means algorithm \cite{nlm05} to obtain a more pleasant result to our eye (bottom right) compared to the original result (top right).
 
 \begin{figure}[H]
 	\centering

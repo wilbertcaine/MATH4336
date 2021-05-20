@@ -4,35 +4,42 @@
 \citation{sr11}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{}\protected@file@percent }
 \citation{sr11}
-\citation{sr11}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Gradient Profile Prior for Image Super-Resolution}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Gradient Profile Prior}{2}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces (a) two images with different sharpness where the top image is sharper than the bottom image. (b) inverted and normalized gradient magnitude for the corresponding region of the image in (a) and the gradient profile $p(x_0)$ is the path starting from $x_1$ and $x_2$ along the gradient direction and ending at the edge pixel $x_0$ where the gradient magnitude no longer increase. (c) graph of gradient magnitude along the path ($p(x_0)$) from $x_1$ to $x_2$. Note that sharp edge results in shorter gradient profile and greater change in gradient magnitude along the gradient profile. (d) encountered pixels are marked by red dots and, as an example, the gradient magnitude at $x$ is interpolated from $a$ and $b$.\relax }}{2}{}\protected@file@percent }
+\newlabel{Gradient Profile Prior}{{2.1}{2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces (a) two images with different sharpness where the top image is sharper than the bottom image. (b) inverted and normalized gradient magnitude for the corresponding region of the image in (a) and the gradient profile $p(x_0)$ is the path which starts from the edge pixel $x_0$ along the gradient direction and stops at $x_1$ and $x_2$ where the gradient magnitude no longer increase. (c) graph of gradient magnitude along the path ($p(x_0)$) from $x_1$ to $x_2$. Note that sharp edge results in shorter gradient profile and greater change in gradient magnitude along the gradient profile. (d) encountered pixels are marked by red dots and, as an example, the gradient magnitude at $x$ is interpolated from $a$ and $b$.\relax }}{2}{}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:gp}{{1}{2}}
-\newlabel{eq:sigma}{{1}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces relationship between the sharpness of gradient profiles in up-sampled images and the sharpness of gradient profiles in the actual HR image.\relax }}{3}{}\protected@file@percent }
-\newlabel{fig:es}{{2}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Gradient Field Transformation}{3}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Super-Resolution Model}{3}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Effect of changing the value of the parameter $\beta $ towards the SSIM between the reconstructed HR image and the ground truth. We set $\beta = 0.05$, by default, in the implementation. In experiment, the HR images are sharp and clear enough after 25 iterations (default number of iterations in the implementation).\relax }}{3}{}\protected@file@percent }
-\newlabel{fig:beta}{{3}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces HR image reconstruction with small and large value of parameter $\beta $. Setting $\beta = 0$ will produce HR image with ringing and jaggy artifacts. On the other hand, the artifacts are less visible when $\beta = 0.5$.\relax }}{3}{}\protected@file@percent }
-\newlabel{fig:beta2}{{4}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \relax }}{3}{}\protected@file@percent }
+\newlabel{fig:shapep}{{2}{3}}
+\newlabel{eq:sigma}{{2}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces relationship between the sharpness of gradient profiles in up-sampled images and the sharpness of gradient profiles in the actual HR image.\relax }}{3}{}\protected@file@percent }
+\newlabel{fig:es}{{3}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Super-Resolution Model}{3}{}\protected@file@percent }
+\newlabel{eq:transformr}{{3}{4}}
+\newlabel{eq:transformgrad}{{4}{4}}
+\newlabel{eq:energy1}{{5}{4}}
+\newlabel{eq:energyi}{{6}{4}}
+\newlabel{eq:energyg}{{7}{4}}
+\newlabel{eq:energy1}{{8}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Effect of changing the value of the parameter $\beta $ towards the SSIM between the reconstructed HR image and the ground truth. We set $\beta = 0.05$, by default, in the implementation. In experiment, the HR images are sharp and clear enough after 25 iterations (default number of iterations in the implementation).\relax }}{4}{}\protected@file@percent }
+\newlabel{fig:beta}{{4}{4}}
 \citation{ssim04}
 \citation{ssim04}
 \citation{nlm05}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Gradient Profile Prior for Image Enhancement}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Sharpness Enhancement Function}{4}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Image enhancement using the sharpness enhancement function: the reconstructed HR images (top) and inverted gradient magnitude map (bottom). The Structural SIMilarity (SSIM) \cite  {ssim04} between the HR image and ground truth increases as $\mu $ gets closer to 0 since the sharpness gets closer to that of the ground truth.\relax }}{4}{}\protected@file@percent }
-\newlabel{fig:mu}{{5}{4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Noisy Image Super-Resolution}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces HR image reconstruction with small and large value of parameter $\beta $. Setting $\beta = 0$ will produce HR image with ringing and jaggy artifacts. On the other hand, the artifacts are less visible when $\beta = 0.5$.\relax }}{5}{}\protected@file@percent }
+\newlabel{fig:beta2}{{5}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Gradient Profile Prior for Image Enhancement}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Sharpness Enhancement Function}{5}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Image enhancement using the sharpness enhancement function: the reconstructed HR images (top) and inverted gradient magnitude map (bottom). The Structural SIMilarity (SSIM) \cite  {ssim04} between the HR image and ground truth increases as $\mu $ gets closer to 0 since the sharpness gets closer to that of the ground truth.\relax }}{5}{}\protected@file@percent }
+\newlabel{fig:mu}{{6}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Noisy Image Super-Resolution}{5}{}\protected@file@percent }
 \bibcite{in16}{1}
 \bibcite{sr11}{2}
 \bibcite{ssim04}{3}
 \bibcite{nlm05}{4}
 \bibcite{noise14}{5}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces (top) HR image reconstruction from the noisy LR image. (bottom) HR image is reconstructed by adding back the up-sampled noise layer to the HR image generated from the denoised LR image\relax }}{5}{}\protected@file@percent }
-\newlabel{fig:sden}{{6}{5}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion}{5}{}\protected@file@percent }
-\gdef \@abspage@last{5}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces (top) HR image reconstruction from the noisy LR image. (bottom) HR image is reconstructed by adding back the up-sampled noise layer to the HR image generated from the denoised LR image\relax }}{6}{}\protected@file@percent }
+\newlabel{fig:sden}{{7}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Conclusion}{6}{}\protected@file@percent }
+\gdef \@abspage@last{6}
