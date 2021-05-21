@@ -6,10 +6,10 @@
 \citation{sr11}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Gradient Profile Prior}{2}{}\protected@file@percent }
 \newlabel{sec:Gradient Profile Prior}{{2}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces (a) two images with different sharpness where the top image is sharper than the bottom image. (b) inverted and normalized gradient magnitude for the corresponding region of the image in (a) and the gradient profile $p(x_0)$ is the path which starts from the edge pixel $x_0$ along the gradient direction and stops at $x_1$ and $x_2$ where the gradient magnitude no longer increase. (c) graph of gradient magnitude along the path ($p(x_0)$) from $x_1$ to $x_2$. Note that sharp edge results in shorter gradient profile and greater change in gradient magnitude along the gradient profile. (d) encountered pixels are marked by red dots and, as an example, the gradient magnitude at $x$ is interpolated from $a$ and $b$.\relax }}{2}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces (a) two images with different sharpness where the top image is sharper than the bottom image. (b) inverted and normalized gradient magnitude for the corresponding region of the image in (a) and the gradient profile $p(x_0)$ is the path which starts from the edge pixel $x_0$ along the gradient direction and stops at $x_1$ and $x_2$ where the gradient magnitude no longer decrease. (c) graph of gradient magnitude along the path $p(x_0)$ from $x_1$ to $x_2$. Note that sharp edge results in shorter gradient profile and more significant jump of gradient magnitude along the gradient profile. (d) encountered pixels are marked by red dots. As an example, the gradient magnitude at $x$ is interpolated from $a$ and $b$ and the gradient magnitude between $x_0$ and $x$ will be disregarded.\relax }}{2}{}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:gp}{{1}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces average KL-divergence between the gradient profiles from various shape parameter $\lambda $ and the fitted gradient profiles\relax }}{3}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces average KL-divergence between the gradient profiles of various shape parameter $\lambda $ and the fitted gradient profiles\relax }}{3}{}\protected@file@percent }
 \newlabel{fig:shapep}{{2}{3}}
 \newlabel{eq:sigma}{{2}{3}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces relationship between the sharpness of gradient profiles in up-sampled images and the sharpness of gradient profiles in the actual HR image.\relax }}{3}{}\protected@file@percent }
@@ -21,7 +21,7 @@
 \newlabel{eq:energy1}{{5}{4}}
 \newlabel{eq:energyi}{{6}{4}}
 \newlabel{eq:energyg}{{7}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces HR image reconstruction with small and large value of parameter $\beta $. Setting $\beta = 0$ will produce HR image with ringing and jaggy artifacts. On the other hand, the artifacts are less visible when $\beta = 0.5$.\relax }}{4}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces HR image reconstruction with small and large value of parameter $\beta $. Setting small value of $\beta $ will produce HR image with ringing and jaggy artifacts. On the other hand, the artifacts are less visible when $\beta $ is larger.\relax }}{4}{}\protected@file@percent }
 \newlabel{fig:beta2}{{4}{4}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Effect of changing the value of the parameter $\beta $ towards the SSIM between the reconstructed HR image and the ground truth. We set $\beta = 0.05$, by default, in the implementation. In experiment, the HR images are sharp and clear enough after 25 iterations (default number of iterations in the implementation).\relax }}{5}{}\protected@file@percent }
 \newlabel{fig:beta}{{5}{5}}
