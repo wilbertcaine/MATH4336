@@ -1,11 +1,11 @@
 addpath('\\Vdidrive\myhome\wcaine\Documents\MATLAB\dataset');
 
-filename = 'barbara11.png';
+filename = 'tes611.jfif';
 up_scale = 2; % 2
 up_scale_factor = 1;
-t_max = 200; % 100
+t_max = 25; % 100
 tau = 0.2; % 0.2
-beta = 0.05; % 0.05
+beta = 1; % 0.05
 lambda_h = 1.63; % 1.63
 lambda_l = 1.6; % 1.6
 gau_sigma = 0.8; % 0.8
@@ -25,7 +25,7 @@ for i = 1 : mod(columns, 4)
 end
 
 input = ground_truth;
-input = imresize(input, 1/up_scale^up_scale_factor, 'bilinear');
+% input = imresize(input, 1/up_scale^up_scale_factor, 'bilinear');
 n = 9;
 n=3;
 
@@ -41,27 +41,30 @@ up_input = imresize(input, up_scale^up_scale_factor, 'bicubic');
 
 subplot(2, n, 1);
 imshow(up_input);
-title({'bicubic up-sample', ['SSIM = ', num2str(ssim(up_input, ground_truth))]});
+% title({'bicubic up-sample', ['SSIM = ', num2str(ssim(up_input, ground_truth))]});
+title({'bicubic up-sample'});
 [Gmag,Gdir] = imgradient(up_input, 'central');
 subplot(2, n, n+1);
 imshow(imcomplement(Gmag));
 imshow(Gmag);
 
-mu = inf;
+mu = 5;
 subplot(2, n, 2);
 img_inf = plot_mu(input, up_scale, up_scale_factor, t_max, tau, beta, lambda_h, lambda_l, gau_sigma, mu);
 imshow(img_inf);
-title({['\mu = ', num2str(mu)], ['SSIM = ', num2str(ssim(img_inf, ground_truth))]});
+% title({['\mu = ', num2str(mu)], ['SSIM = ', num2str(ssim(img_inf, ground_truth))]});
+title({['\mu = ', num2str(mu)]});
 [Gmag,Gdir] = imgradient(img_inf, 'central');
 subplot(2, n, n+2);
 imshow(imcomplement(Gmag));
 imshow(Gmag);
 
-mu=0.01;
+mu=0.1;
     subplot(2, n, 3);
     img = plot_mu(input, up_scale, up_scale_factor, t_max, tau, beta, lambda_h, lambda_l, gau_sigma, mu);
     imshow(img);
-    title({['\mu = ', num2str(mu)], ['SSIM = ', num2str(ssim(img, ground_truth))]});
+%     title({['\mu = ', num2str(mu)], ['SSIM = ', num2str(ssim(img, ground_truth))]});
+    title({['\mu = ', num2str(mu)]});
     [Gmag,Gdir] = imgradient(img, 'central');
     subplot(2, n, n+3);
     imshow(imcomplement(Gmag));
