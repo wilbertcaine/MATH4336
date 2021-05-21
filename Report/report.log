@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.4.4)  21 MAY 2021 00:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.4.4)  21 MAY 2021 22:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -308,7 +308,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/usr/local/texlive/2021basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 <Gradient-profile-a-Two-edges-with-different-sharpness-b-Gradient-maps-normaliz
-ed.png, id=20, 853.1875pt x 366.36874pt>
+ed.png, id=15, 853.1875pt x 366.36874pt>
 File: Gradient-profile-a-Two-edges-with-different-sharpness-b-Gradient-maps-nor
 malized.png Graphic file (type png)
 <use Gradient-profile-a-Two-edges-with-different-sharpness-b-Gradient-maps-norm
@@ -316,11 +316,11 @@ alized.png>
 Package pdftex.def Info: Gradient-profile-a-Two-edges-with-different-sharpness-
 b-Gradient-maps-normalized.png  used on input line 55.
 (pdftex.def)             Requested size: 362.37569pt x 155.61241pt.
-<3-Figure2-1.png, id=22, 544.0325pt x 418.56375pt>
+<3-Figure2-1.png, id=17, 544.0325pt x 418.56375pt>
 File: 3-Figure2-1.png Graphic file (type png)
 <use 3-Figure2-1.png>
 Package pdftex.def Info: 3-Figure2-1.png  used on input line 68.
-(pdftex.def)             Requested size: 226.48395pt x 174.24997pt.
+(pdftex.def)             Requested size: 181.18439pt x 139.39742pt.
  [2 <./Gradient-profile-a-Two-edges-with-different-sharpness-b-Gradient-maps-no
 rmalized.png>]
 
@@ -337,67 +337,74 @@ arpness-of-the.png>
 Package pdftex.def Info: Expected-sharpness-of-the-gradient-profiles-in-HR-imag
 e-with-respect-to-sharpness-of-the.png  used on input line 82.
 (pdftex.def)             Requested size: 181.18439pt x 172.3883pt.
+
+LaTeX Warning: Reference `Gradient Profile Prior' on page 3 undefined on input 
+line 95.
+
 [3 <./3-Figure2-1.png> <./Expected-sharpness-of-the-gradient-profiles-in-HR-ima
 ge-with-respect-to-sharpness-of-the.png>]
-<large small beta.png, id=38, 851.43094pt x 198.7425pt>
+<large small beta.png, id=38, 853.68938pt x 200.24812pt>
 File: large small beta.png Graphic file (type png)
 <use large small beta.png>
-Package pdftex.def Info: large small beta.png  used on input line 132.
-(pdftex.def)             Requested size: 452.9679pt x 105.7333pt.
+Package pdftex.def Info: large small beta.png  used on input line 133.
+(pdftex.def)             Requested size: 452.9679pt x 106.25322pt.
  [4 <./large small beta.png>]
 <beta.png, id=43, 855.195pt x 123.46124pt>
 File: beta.png Graphic file (type png)
 <use beta.png>
-Package pdftex.def Info: beta.png  used on input line 148.
+Package pdftex.def Info: beta.png  used on input line 149.
 (pdftex.def)             Requested size: 452.9679pt x 65.39268pt.
-<mu variation 2.png, id=44, 812.28468pt x 508.14844pt>
-File: mu variation 2.png Graphic file (type png)
-<use mu variation 2.png>
-Package pdftex.def Info: mu variation 2.png  used on input line 165.
-(pdftex.def)             Requested size: 452.9679pt x 283.36711pt.
+<mu variation.png, id=44, 812.28468pt x 506.6428pt>
+File: mu variation.png Graphic file (type png)
+<use mu variation.png>
+Package pdftex.def Info: mu variation.png  used on input line 167.
+(pdftex.def)             Requested size: 452.9679pt x 282.5275pt.
  [5 <./beta.png>]
 <simple denoise.png, id=49, 821.31844pt x 518.6878pt>
 File: simple denoise.png Graphic file (type png)
 <use simple denoise.png>
-Package pdftex.def Info: simple denoise.png  used on input line 177.
+Package pdftex.def Info: simple denoise.png  used on input line 179.
 (pdftex.def)             Requested size: 452.9679pt x 286.06271pt.
- [6 <./mu variation 2.png>] [7 <./simple denoise.png>] (./report.aux) ) 
+ [6 <./mu variation.png>] [7 <./simple denoise.png>] [8] (./report.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4476 strings out of 480445
- 69523 string characters out of 5892392
- 363375 words of memory out of 5000000
- 21685 multiletter control sequences out of 15000+600000
- 415600 words of font info for 76 fonts, out of 8000000 for 9000
+ 4480 strings out of 480445
+ 69662 string characters out of 5892392
+ 364391 words of memory out of 5000000
+ 21689 multiletter control sequences out of 15000+600000
+ 415908 words of font info for 77 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 83i,11n,88p,1080b,336s stack positions out of 5000i,500n,10000p,200000b,80000s
- </Users
-/wilbertcaine/Library/texlive/2021basic/texmf-var/fonts/pk/ljfour/jknappen/ec/t
-crm0600.600pk> </Users/wilbertcaine/Library/texlive/2021basic/texmf-var/fonts/p
-k/ljfour/jknappen/ec/tcrm0800.600pk></usr/local/texlive/2021basic/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021basic/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021basic/texmf
--dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2021basic/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2021bas
-ic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/202
-1basic/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/tex
-live/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local
-/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/lo
-cal/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
-/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></
-usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
-></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.
-pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-17.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr6.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr8.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmr9.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmsy10.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy8.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmti10.pfb>
-Output written on report.pdf (7 pages, 1267632 bytes).
+ 83i,11n,88p,1287b,336s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </Users/wilbertcaine/Library/texlive/2021basic/texmf-var/fonts/pk/ljfour/jkn
+appen/ec/tcrm0600.600pk> </Users/wilbertcaine/Library/texlive/2021basic/texmf-v
+ar/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk></usr/local/texlive/2021basic/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021basic
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021b
+asic/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/20
+21basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texli
+ve/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/t
+exlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr
+/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pf
+b></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8
+.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi9.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr10.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr12.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr17.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr6.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr8.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr9.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021basic/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmti10.pfb>
+Output written on report.pdf (8 pages, 1257388 bytes).
 PDF statistics:
- 129 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
+ 132 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

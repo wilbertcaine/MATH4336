@@ -41,12 +41,12 @@ We employed the information in the gradient profile prior to construct high reso
 
 \section{Introduction}
 
-Image resolution refers to the ability of a sensor to differentiate between two objects or pixels that are relatively close to each other. Compared to low-resolution images (LR), high-resolution (HR) images are often desirable especially in fields such as computer vision, video surveillance, medical imaging, etc. Despite the vast advancement in hardware technology, image resolution enhancement techniques are still significant in many applications. For example, digital surveillance products usually sacrifice not only frame rate but also resolution to ensure the long-term usability of the devices\cite{in16}. The purpose of super-resolution (SR) is to generate a HR image out of the LR image. In general, there are three different approaches, which are interpolation based methods, reconstruction based methods, and learning based methods, with their own advantages and disadvantages in the application\cite{sr11}. Overall, many researches have been done on how to apply the prior or constraint of the HR images.
+Image resolution refers to the ability of a sensor to differentiate between two objects or pixels that are relatively close to each other. Compared to low-resolution images (LR), high-resolution (HR) images are often desirable especially in fields such as computer vision, video surveillance, medical imaging, etc. Despite the vast advancement in hardware technology, image resolution enhancement techniques are still significant in many applications. For example, digital surveillance products usually sacrifice not only frame rate but also resolution to ensure the long-term usability of the devices \cite{in16}. The purpose of super-resolution (SR) is to generate a HR image out of the LR image. In general, there are three different approaches, which are interpolation based methods, reconstruction based methods, and learning based methods, with their own advantages and disadvantages in the application \cite{sr11}. Overall, many researches have been done on how to apply the prior or constraint of the HR images.
 
-To solve this issue, the gradient profile prior\cite{sr11} is adopted in this project. By enforcing both reconstruction constraint and the gradient field constraint, the HR images would be sharp with minimal artifacts along the edges. In this report, we show that the gradient profile prior could be used to enhance the sharpness and control the amount of artifacts in the image. One may expect that the model could be sensitive to noise such that the noise would be sharpened as well. Therefore, we also discuss how image denoising methods could be applied to better the HR image.
+To solve this issue, the proposed model uses the spatial layouts of natural images gradient to reconstruct the HR image. In this project, image gradient is described by gradient profile \cite{sr11}. The gradient profile is expressed by an increasing sequence of gradient magnitudes of the pixels crossed by the 1-D path along the magnitude direction passing through the edge pixel. By enforcing both reconstruction constraint and the gradient field constraint, the HR images would be sharp with minimal artifacts along the edges. In this report, we show that the gradient profile prior could be used to enhance the sharpness and control the amount of artifacts in the image. The report is organized as follows. In the Section \ref{sec:Gradient Profile Prior}, we study the properties found in the gradient profile prior of natural images that we expect to recover in the HR image given the LR image. In Section \ref{sec:Gradient Profile Prior for Image Super-Resolution}, we present the SR image generation model using the gradient profile prior. Lastly, we discuss how to further enhance the sharpness of an image and one possible approach to produce the HR image of a noisy LR image without the noise being enhanced.
 
 \section{Gradient Profile Prior}
-\label{Gradient Profile Prior}
+\label{sec:Gradient Profile Prior}
 
 We define the image gradient as $\nabla I = (\partial_x I, \partial_y I) = \sqrt{(\partial_x I)^2 + (\partial_y I)^2} \cdot \vec{N} = m \cdot \vec{N} $ where $m$ is the gradient magnitude and $\vec{N}$ is the gradient unit vector. To obtain the numerical derivatives, we adopts the central difference for both $\partial_x I$ and $\partial_y I$. Then, we denote the edge pixel as the local maximum along its gradient direction in the gradient field. In other words, we trace the path along the gradient direction of an edge pixel until the gradient magnitude stops decreasing. The path from an edge pixel along the gradient direction is called the gradient profile. In implementation, piecewise linear interpolation is applied to estimate the gradient of the pixel when one of the spatial coordinates is non-integer (i.e. the gradient magnitude will be compared to the current gradient magnitude only when at least one of the spatial coordinates is an integer). The gradient magnitude and coordinate of the encountered is recorded for further usage.
 
@@ -65,8 +65,8 @@ with $\Gamma(\cdot)$ is gamma function and $\alpha (\lambda) = \sqrt{\frac{\Gamm
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{3-Figure2-1.png}
-	\caption{}
+	\includegraphics[width=0.4\textwidth]{3-Figure2-1.png}
+	\caption{average KL-divergence between the gradient profiles from various shape parameter $\lambda$ and the fitted gradient profiles}
 	\label{fig:shapep}
 \end{figure}
 
@@ -85,6 +85,7 @@ where $m'(x) = {m(x) \over \sum_{x \epsilon p(x_0)} m(x)}$ and $d(x,x_0)$ is the
 \end{figure}
 
 \section{Gradient Profile Prior for Image Super-Resolution}
+\label{sec:Gradient Profile Prior for Image Super-Resolution}
 
 In this project, the HR gradient field is approximated from the LR gradient field using the gradient profile prior. We denote gradient profile as $p_l$ for up-sampled LR image $\nabla I_l^u$ and $p_h$ for the HR image $\nabla I_h$. Firstly, we compute the ratio between the gradient profiles, i.e.
 \begin{equation}
@@ -121,7 +122,7 @@ In practice, we use the following iterative scheme to minimize (\ref{eq:energy1}
 \end{equation}
 where
 \begin{equation}
-	\frac{\partial E(I_h)}{\partial I_h} = - [((I_h \ast G) \downarrow - I_l) \uparrow \ast G - \beta \cdot (div(\nabla I_h) - div(\nabla I_h^T)]
+	\frac{\partial E(I_h)}{\partial I_h} = ((I_h \ast G) \downarrow - I_l) \uparrow \ast G - \beta \cdot (div(\nabla I_h) - div(\nabla I_h^T))
 \end{equation}
  with $div(\nabla I_h) = \frac{\partial^2 I_h}{\partial x^2} + \frac{\partial^2 I_h}{\partial y^2}$ and step function $\tau =0.2$ by default.
 
@@ -141,7 +142,7 @@ After the HR image is generated, we assess the performance of the model by compa
 	s(x,y) = \frac{2 \sigma_xy + c_2}{\sigma_x \sigma_y + c_2}\\
 	SSIM(x,y) = [l(x,y)^\alpha \cdot c(x,y)^\beta \cdot s(x,y)^\gamma]
 \end{gather*}
-where $c_3 = \frac{c_1}{2}$, $c_1=(k_1L)^2$, and $c_2=(k_2L)^2$ with $k_1=0.01$, $k_2=0.03$, and $L=2^{\#bits\ per\ pixel}-1$ by default. In implementation, we let $\alpha = \beta = \gamma = 1$. Therefore, we could use SSIM value to determine the value of $\beta$ that produces the best result. For the series of $\beta$ values in Figure \ref{fig:beta}, we found that $\beta = 0.05$ produces the best result in terms of SSIM by experiment.
+where $c_3 = \frac{c_1}{2}$, $c_1=(k_1L)^2$, and $c_2=(k_2L)^2$ with $k_1=0.01$, $k_2=0.03$, and $L=2^{\#bits\ per\ pixel}-1$ by default. In implementation, we let $\alpha = \beta = \gamma = 1$. The resultant of SSIM index is a value between 0 and 1 where a value of 0 indicates no structural similarity and a value of 1 is only obtained when two identical images are compared. Therefore, we can use SSIM value as a measurement to determine the value of $\beta$ that produces the best HR result. For the series of $\beta$ values in Figure \ref{fig:beta}, we found that $\beta = 0.05$ produces the best result in terms of SSIM by experiment.
 
 \begin{figure}[H]
 	\centering
@@ -151,6 +152,7 @@ where $c_3 = \frac{c_1}{2}$, $c_1=(k_1L)^2$, and $c_2=(k_2L)^2$ with $k_1=0.01$,
 \end{figure}
 
 \section{Gradient Profile Prior for Image Enhancement}
+\label{sec:Gradient Profile Prior for Image Enhancement}
 
 \subsection{Sharpness Enhancement Function}
 
@@ -162,7 +164,7 @@ which is continuous and results in smaller $\sigma_h$ values. As $\mu > 0$ is ch
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{mu variation 2.png}
+	\includegraphics[width=1\textwidth]{mu variation.png}
 	\caption{Image enhancement using the sharpness enhancement function: the reconstructed HR images (top) and inverted gradient magnitude map (bottom). After sharpness enhancement, the length of the gradient profile becomes shorter than the gradient profile prior before applying the function. This is represented by the thinner white lines in the bottom right image. The difference in the gradient maps is similar to our initial observation in Figure \ref{fig:gp} (b).}
 	\label{fig:mu}
 \end{figure}
@@ -170,7 +172,7 @@ which is continuous and results in smaller $\sigma_h$ values. As $\mu > 0$ is ch
 
 \subsection{Noisy Image Super-Resolution}
 
-The SR model using the gradient profile prior is incapable of differing between edge and noise in the image. In other words, the model will treat the noise in the same way as the edge, i.e. enhanced. As an implication, the noise might appear as local maximum in the gradient domain and, in turns, create unexpected gradient profiles. One straightforward solution is to firstly extract the noise layer through a denosing method before applying the HR reconstruction algorithm. This process would remove the unexpected gradient profiles in the image. Secondly, the noise layer is then upsampled and reapplied to the HR image constructed previously. In Figure \ref{fig:sden}, the LR image is denoised with the non-local means algorithm \cite{nlm05} to obtain a more pleasant result to our eye (bottom right) compared to the original result (top right).
+One may expect that the model could be sensitive to noise such that the noise would be sharpened as well. The SR model using the gradient profile prior is incapable of differing between edge and noise in the image. In other words, the model will treat the noise in the same way as the edge, i.e. enhanced. As an implication, the noise might appear as local maximum in the gradient domain and, in turns, create unexpected gradient profiles. One straightforward solution is to firstly extract the noise layer through a denosing method before applying the HR reconstruction algorithm. This process would remove the unexpected gradient profiles in the image. Secondly, the noise layer is then upsampled and reapplied to the HR image constructed previously. In Figure \ref{fig:sden}, the LR image is denoised with the non-local means algorithm \cite{nlm05} to obtain a more pleasant result to our eye (bottom right) compared to the original result (top right).
 
 \begin{figure}[H]
 	\centering
@@ -181,6 +183,7 @@ The SR model using the gradient profile prior is incapable of differing between 
 
 \section{Conclusion}
 
+In this project, we have utilized a natural image prior called the gradient profile prior. In addition to the image domain constraint, the gradient field of up-sampled LR image is transformed Using the gradient profile prior and the transformed gradient field is applied as a constraint in the gradient domain. The model produce HR image with enhanced sharpness and suppressed ringing or jaggy artifacts while the sharpness distribution is enforced to fit the distribution from learned natural images. The examples of the resulting image in the project is verified with the SSIM value between the HR image and the ground truth. The sharpness enhancement function could also be incorporated into the model to further enhance the sharpness of the image and, for noisy images, one possible approach is to apply any denoising technique to remove the noise and re-add the noise back after HR image is reconstructed from the denoised image.
 
 \begin{thebibliography}{10}
 
