@@ -129,7 +129,7 @@ Parameter $\beta$ is introduced to the model to balance the image domain constra
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{beta 0 05.png}
+	\includegraphics[width=1\textwidth]{large small beta.png}
 	\caption{HR image reconstruction with small and large value of parameter $\beta$. Setting $\beta = 0$ will produce HR image with ringing and jaggy artifacts. On the other hand, the artifacts are less visible when $\beta = 0.5$.}
 	\label{fig:beta2}
 \end{figure}
@@ -158,12 +158,12 @@ HR images are expected to have sharp edges as shown in the inverted gradient mag
 \begin{equation}
 	F(\sigma_h) = (1-e^{-\mu\sigma_h})\sigma_h
 \end{equation}
-which is continuous and results in smaller $\sigma_h$ values. As $\mu > 0$ is chosen to be closer to 0, the edge sharpness will be further enhanced.
+which is continuous and results in smaller $\sigma_h$ values. As $\mu > 0$ is chosen to be closer to 0, the edge sharpness will be further enhanced. When $\mu = \infty$, the model will have no sharpness enhancement and corresponds to the original model.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{mu.png}
-	\caption{Image enhancement using the sharpness enhancement function: the reconstructed HR images (top) and inverted gradient magnitude map (bottom). The Structural SIMilarity (SSIM) \cite{ssim04} between the HR image and ground truth increases as $\mu$ gets closer to 0 since the sharpness gets closer to that of the ground truth.}
+	\includegraphics[width=1\textwidth]{mu variation 2.png}
+	\caption{Image enhancement using the sharpness enhancement function: the reconstructed HR images (top) and inverted gradient magnitude map (bottom). After sharpness enhancement, the length of the gradient profile becomes shorter than the gradient profile prior before applying the function. This is represented by the thinner white lines in the bottom right image. The difference in the gradient maps is similar to our initial observation in Figure \ref{fig:gp} (b).}
 	\label{fig:mu}
 \end{figure}
 
@@ -174,7 +174,7 @@ The SR model using the gradient profile prior is incapable of differing between 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{simple denoise.png}
+	\includegraphics[width=1\textwidth]{simple denoise.png}
 	\caption{(top) HR image reconstruction from the noisy LR image. (bottom) HR image is reconstructed by adding back the up-sampled noise layer to the HR image generated from the denoised LR image}
 	\label{fig:sden}
 \end{figure}
