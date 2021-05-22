@@ -97,9 +97,16 @@ where $\lambda_h=1.63$, $\lambda_l=1.6$, and $\sigma_h$ is estimated from $\sigm
 	\label{eq:transformgrad}
 	\nabla I_h^T(x) = r(d(x, x_0)) \cdot \nabla I_l^u(x)
 \end{equation}
-for every pixel $x$ in the image. Multiplying the transform ratio results in increased gradient magnitude of the pixels near an edge pixels or decreased otherwise. Through this process, the gradient profile sharpness is enhanced while the spatial scattering becomes smaller which is illustrated in Figure \ref{fig:gp} (c). The transformed gradient field in (\ref{eq:transformgrad}) is used as the gradient domain constraint when reconstructing the HR image.
+for every pixel $x$ in the image. Multiplying the transform ratio results in increased gradient magnitude of the pixels near an edge pixels or decreased otherwise. In Figure \ref{fig:picture1}, the gradient magnitude within the distance of $d_0$ will be increased and otherwise will be decreased. Through this process, the gradient profile sharpness is enhanced while the spatial scattering becomes smaller which is illustrated in Figure \ref{fig:gp} (c).
 
-Given a LR image $I_l$, we minimize the following energy to reconstruct the HR image $I_h$
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{Picture1.png}
+	\caption{An example of the graph of transform with parameters value of $\lambda_h=1.6$, $\sigma_h=1$, $\lambda_l=1.6$, and $\sigma_l=2$. The transform ratio within $d_0$ is larger than 1 while the transform ratio outside $d_0$ is smaller than 1. As a result, the gradient magnitude will be increased within $d_0$ and decreased outside $d_0$.}
+	\label{fig:picture1}
+\end{figure}
+
+In addition to the image domain constraint, the transformed gradient field in (\ref{eq:transformgrad}) is also used as the gradient domain constraint when reconstructing the HR image. Given a LR image $I_l$, we minimize the following energy to reconstruct the HR image $I_h$
 \begin{equation}
 	\label{eq:energy1}
 	E(I_h | I_l, \nabla I_h^T) = E_i(I_h | I_l) + \beta E_g(\nabla I_h, \nabla I_h^T) 
