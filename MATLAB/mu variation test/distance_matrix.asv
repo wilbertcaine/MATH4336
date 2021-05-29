@@ -1,4 +1,0 @@
-function D = distance_matrix(Gx, Gy)
-    
-end
-

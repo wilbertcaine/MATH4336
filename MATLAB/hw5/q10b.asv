@@ -1,5 +1,0 @@
-X = imread('Fig5.26a.jpg');
-Y = fft2(double(X));
-shiftY = fftshift(Y);
-imshow(abs(shiftY));
-abs(Y(1, 1))
