@@ -146,7 +146,7 @@ After the HR image is generated, we assess the performance of the model by compa
 \begin{gather*}
 	l(x,y) = \frac{2 \mu_x \mu_y + c_1}{\mu_x^2 + \mu_y^2 + c_1}\\
 	c(x,y) = \frac{2 \sigma_x \sigma_y + c_2}{\sigma_x^2 + \sigma_y^2 + c_2}\\
-	s(x,y) = \frac{2 \sigma_xy + c_3}{\sigma_x \sigma_y + c_3}\\
+	s(x,y) = \frac{2 \sigma_{xy} + c_3}{\sigma_x \sigma_y + c_3}\\
 	SSIM(x,y) = [l(x,y)^\alpha \cdot c(x,y)^\beta \cdot s(x,y)^\gamma]
 \end{gather*}
 where $c_3 = \frac{c_2}{2}$, $c_1=(k_1L)^2$, and $c_2=(k_2L)^2$ with $k_1=0.01$, $k_2=0.03$, and $L=2^{\#bits\ per\ pixel}-1$ by default. In practice, we let $\alpha = \beta = \gamma = 1$. The resultant of SSIM index is a value between 0 and 1 where a value of 0 indicates no structural similarity and a value of 1 is only obtained when two identical images are compared. Therefore, we can use SSIM value as a measurement to determine the value of $\beta$ that produces the best HR result. For the series of $\beta$ values in Figure \ref{fig:beta}, we found that $\beta = 0.05$ produces the best result in terms of SSIM by experiment.
