@@ -1,6 +1,4 @@
-addpath('\\Vdidrive\myhome\wcaine\Documents\MATLAB\src\dataset');
-addpath('\\Vdidrive\myhome\wcaine\Documents\MATLAB\src\Non-Local-Means-master');
-addpath('\\Vdidrive\myhome\wcaine\Documents\MATLAB\src\SSIM');
+folder = fileparts(mfilename('fullpath')); 
 
 up_scale = 2; % 2
 up_scale_factor = 1; % 1
@@ -30,24 +28,8 @@ input = ground_truth;
 down_input = imresize(input, 1/up_scale^up_scale_factor, 'bilinear');
 up_input = imresize(down_input, up_scale^up_scale_factor, 'bicubic');
 
-output = plot_mu(down_input, up_scale, up_scale_factor, t_max, tau, beta, lambda_h, lambda_l, gau_sigma, mu);
-title({'output', ['SSIM = ', num2str(ssim(output, ground_truth))]});
 
-% 
-% figure;
-% imshow(up_input);
-% 
-% output = plot_mu(down_input, up_scale, up_scale_factor, t_max, tau, beta, lambda_h, lambda_l, gau_sigma, mu);
-% 
-% figure;
-% imshow(input);
-% 
-% [Gmag,Gdir] = imgradient(input, 'central');
-% imshow(imcomplement(Gmag));
-% imshow(Gmag);
-% 
-% title({'title', ['SSIM = ', num2str(ssim(img, ground_truth))]});
-% 
+
 % noise_sigma = 0.25;
 % noise = randn(size(down_input)) * noise_sigma;
 % down_input = down_input + noise;
@@ -55,12 +37,15 @@ title({'output', ['SSIM = ', num2str(ssim(output, ground_truth))]});
 % down_input = min(down_input, 1);
 % 
 % denoised_lr = nonLocalMeans(down_input, noise_sigma, noise_sigma, 7, 21);
-% noise = down_input - denoised_lr;
-% 
 % hr_denoised_lr = plot_mu(denoised_lr, up_scale, up_scale_factor, t_max, tau, beta, lambda_h, lambda_l, gau_sigma, mu);
 % 
+% noise = down_input - denoised_lr;
 % noise_up = imresize(noise, up_scale^up_scale_factor, 'bilinear');
-% noise_hr_denoised_lr = hr_denoised_lr + noise_up;
+% noisy_hr_denoised_lr = hr_denoised_lr + noise_up;
 % 
-% figure;
-% imshow(noise_hr_denoised_lr);
+% output = noisy_hr_denoised_lr;
+
+output = plot_mu(down_input, up_scale, up_scale_factor, t_max, tau, beta, lambda_h, lambda_l, gau_sigma, mu);
+
+imshow(output);
+title({'output', ['SSIM = ', num2str(ssim(output, ground_truth))]});
